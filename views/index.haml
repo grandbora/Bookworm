@@ -14,7 +14,9 @@
         %script{:type => "IN/Login"}
         %div.contentContainer
             %div.leftBar.horizontal
-            %div.main.horizontal
+            %div.rightBar.horizontal
+                %div.top
+                %div.main
         
         %div.templateContainer
             %script{:type => "template", :class => "leftLink"}
@@ -22,3 +24,11 @@
                     <%= firstName %> <%= lastName %>
             %script{:type => "template", :class => "chartContainer"}
                 %div.horizontal
+            %script{:type => "template", :class => "topProfile"}
+                %div.horizontal
+                    %img
+                %div.horizontal
+                    %div
+                        <%= firstName %> <%= lastName %>
+                    %div
+                        <%= headline %>

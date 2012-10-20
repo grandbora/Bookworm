@@ -68,6 +68,24 @@ var profileFileds = [
 var googleApiKey = 'AIzaSyBV3GuzRh6gun95NpjsfYW7DOiQuy6n58E';
 var goodreadsApiKey = 'TcRDtxyxVNePvcdew3FA';
 
+var TopProfileView = Backbone.View.extend({
+	
+	initialize: function() {
+		_.bindAll(this);
+	},
+
+	clear: function() {
+		this.$el.empty();
+	},
+
+	render: function() {
+		var template = $('script.topProfile').html();
+		var content = _.template(template, this.model.attributes);
+		this.$el.append(content);
+		this.$el.find('img').attr('src', this.model.attributes.pictureUrl);
+	}
+});
+
 var MainContainerView = Backbone.View.extend({
 	
 	initialize: function() {
@@ -77,6 +95,11 @@ var MainContainerView = Backbone.View.extend({
 	clear: function() {
 		this.$el.empty();
 	},
+
+	// chartSelectHandler: function(a,b,v,d,s,e) {
+	// 	debugger;
+	// 	alert('selected');
+	// },
 
 	drawChart: function() {
         var chartData = this.model.bookList.getChartData();
@@ -91,8 +114,12 @@ var MainContainerView = Backbone.View.extend({
         
         var chartContainer = this.getChartContainer();
 
+        mainView.removeLoader();
+
         var chart = new google.visualization.PieChart(chartContainer);
         chart.draw(dataTable, options);
+
+        //google.visualization.events.addListener(chart, 'select', this.chartSelectHandler);
 
         this.model.drawNext();
 	},
@@ -107,6 +134,16 @@ var MainContainerView = Backbone.View.extend({
 
 	render: function() {
 		google.load('visualization', '1.0', {'packages':['corechart'], 'callback' : this.drawChart});
+	},
+
+	addLoader: function() {
+
+		var loader = $('<div/>').addClass('loader horizontal');
+		this.$el.append(loader);
+	},
+
+	removeLoader: function() {
+		this.$el.find('.loader').remove();
 	}
 });
 
@@ -123,8 +160,13 @@ var LeftLinkView = Backbone.View.extend({
 
   activate: function() {
   	this.model.activate();
+
   	mainView.clear();
   	mainView.model = this.model;
+
+  	topProfile.clear();
+  	topProfile.model = this.model;
+  	topProfile.render();
   },
 
   render: function() {
@@ -225,6 +267,7 @@ var BookList = Backbone.Collection.extend({
 			});
 		}else{
 			console.log('no books with isbn could be found');
+			mainView.removeLoader();
 		}
 	},
 
@@ -260,13 +303,17 @@ var Profile = Backbone.Model.extend({
 	},
 
 	loadBooks: function() {
+
 		if (this.attributes.skills) {
+			mainView.addLoader();
+	
 			var subject = this.attributes.skills.values[this.skillIterator].skill.name;
 			this.set('subject', subject);
 			this.bookList = new BookList();
 			this.bookList.load(subject);
 		}else{
 			console.log('no skills could be found');
+			mainView.removeLoader();
 		}
 	},
 
@@ -287,6 +334,7 @@ var ProfileCollection = Backbone.Collection.extend({
 var myConnections = new ProfileCollection();
 var myProfile;
 var mainView;
+var topProfile;
 var IN;
 
 function onLinkedInLoad(){
@@ -301,6 +349,10 @@ function onLinkedInAuth(){
 			el: '.main'
 		});
 
+		topProfile = new TopProfileView({
+			el: '.top'
+		});
+
 		var leftLinkList = new LeftLinkContainerView({
 			collection: myConnections,
 			el: '.leftBar'
@@ -312,7 +364,9 @@ function onLinkedInAuth(){
 			myConnections.add(myProfile);
 
 			 IN.API.Connections("me").params({count:100})
-		    .fields("id", "firstName", "lastName", "pictureUrl", "publicProfileUrl", "skills")
+		    //.fields("id", "firstName", "lastName", "pictureUrl", "publicProfileUrl", "skills")
+		    .fields(profileFileds)
+		    
 		    .result(function(profiles, metadata) {
 		      myConnections.add(profiles.values);
 		      $('div.leftBar .linkItem div').first().click();
