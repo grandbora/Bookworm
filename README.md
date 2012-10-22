@@ -1,6 +1,5 @@
-
 Bookworm lets you discover the popular that are related to your skills in your linkedin profile.  
-Login with your linkedin profile and have fun.  
+[App is live : http://bookwormberlin.herokuapp.com/](http://bookwormberlin.herokuapp.com/) Login with your linkedin profile and have fun.  
 
 Currently your connections' profile pages are not loaded due to a bug on linkedin side, sorry. Not my fault.
 
