@@ -1,0 +1,61 @@
+.horizontal {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.oneLine {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+html,body {
+    background-color:#ffffff;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.leftBar {
+	margin-top: 150px;
+    width: 10%;
+    height: 500px;
+    overflow-y:scroll;
+}
+
+.leftBar .linkItem{
+    color: #4488AA;
+    padding: 1px;
+    margin: 1px;
+    cursor: pointer;
+}
+
+.leftBar .linkItem:hover{
+    color: #4488FF;
+    text-decoration: underline;;
+}
+
+.rightBar {
+    width: 85%;
+}
+
+.top{
+	color: 2244BB;
+	font-size: 22px;
+	font-weight: bold;
+	margin: 5px;
+}
+
+.main {
+}
+
+.loader {
+	background-image:url('img/loader.gif');
+	background-position: center;
+	width: 400px;
+	height: 400px;
+	background-repeat: no-repeat;
+}

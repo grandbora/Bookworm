@@ -1,0 +1,34 @@
+%html
+    %head
+        %title bookworm
+        %link{:rel => "StyleSheet", :href => "css/main.css", :type => "text/css"}
+        %script{:type => "text/javascript", :src => "https://www.google.com/jsapi"}
+        %script{:type => "text/javascript", :src => "http://platform.linkedin.com/in.js"}
+            api_key: uX2unH2u32nHA2ungaHLjz_4maoQocU8CT80rkx
+            authorize: true
+            onLoad: onLinkedInLoad
+            scope: r_basicprofile r_emailaddress r_fullprofile r_contactinfo r_network rw_groups rw_nus
+        %script{:type => "text/javascript", :src => "js/main.js"}
+
+    %body
+        %script{:type => "IN/Login"}
+        %div.contentContainer
+            %div.leftBar.horizontal
+            %div.rightBar.horizontal
+                %div.top
+                %div.main
+        
+        %div.templateContainer
+            %script{:type => "template", :class => "leftLink"}
+                %div
+                    <%= firstName %> <%= lastName %>
+            %script{:type => "template", :class => "chartContainer"}
+                %div.horizontal
+            %script{:type => "template", :class => "topProfile"}
+                %div.horizontal
+                    %img
+                %div.horizontal
+                    %div
+                        <%= firstName %> <%= lastName %>
+                    %div
+                        <%= headline %>
