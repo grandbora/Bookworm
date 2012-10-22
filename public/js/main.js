@@ -65,8 +65,8 @@ var profileFileds = [
 'connections'
 ];
 
-var googleApiKey = 'AIzaSyBV3GuzRh6gun95NpjsfYW7DOiQuy6n58E';
-var goodreadsApiKey = 'TcRDtxyxVNePvcdew3FA';
+var googleApiKey = 'AIzaSyBV3G234uzRh6-sfdgun95Npjs523fYW7D2342OiQuy6n58E';
+var goodreadsApiKey = 'TcRDssdftxyxVNe12Pa_vcdtsew332FA';
 
 var TopProfileView = Backbone.View.extend({
 	
